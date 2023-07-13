@@ -14,12 +14,12 @@ class _LoadingState extends State<Loading> {
     WorldTime instance = WorldTime(
         location: 'Berlin', flag: 'germany.pmg', url: 'Europe/Berlin');
     await instance.getTime();
-    Navigator.pushReplacementNamed(context, '/home',arguments: {
-      'location':instance.location,
-      'flag':instance.flag,
-      'time':instance.time
+    Navigator.pushReplacementNamed(context, '/home', arguments: {
+      'location': instance.location,
+      'flag': instance.flag,
+      'time': instance.time,
+      'isDayTime': instance.isDaytime
     });
-
   }
 
   @override
@@ -32,11 +32,11 @@ class _LoadingState extends State<Loading> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.blue[900],
-      body: Center(
-        child:SpinKitRotatingCircle(
+      body: const Center(
+        child: SpinKitCircle(
           color: Colors.white,
-          size: 50.0,
-        ) ,
+          size: 70.0,
+        ),
       ),
     );
   }
