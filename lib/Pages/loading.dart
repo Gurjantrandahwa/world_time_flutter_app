@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:world_time/services/world_time.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class Loading extends StatefulWidget {
   const Loading({Key? key}) : super(key: key);
@@ -9,10 +10,16 @@ class Loading extends StatefulWidget {
 }
 
 class _LoadingState extends State<Loading> {
-  void setupWorldTime() {
+  void setupWorldTime() async {
     WorldTime instance = WorldTime(
         location: 'Berlin', flag: 'germany.pmg', url: 'Europe/Berlin');
-    instance.getTime();
+    await instance.getTime();
+    Navigator.pushReplacementNamed(context, '/home',arguments: {
+      'location':instance.location,
+      'flag':instance.flag,
+      'time':instance.time
+    });
+
   }
 
   @override
@@ -24,8 +31,12 @@ class _LoadingState extends State<Loading> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: const Center(
-        child: Text("Loading..."),
+      backgroundColor: Colors.blue[900],
+      body: Center(
+        child:SpinKitRotatingCircle(
+          color: Colors.white,
+          size: 50.0,
+        ) ,
       ),
     );
   }
